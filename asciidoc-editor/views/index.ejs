@@ -65,6 +65,13 @@ Welcome to the ASCIIDOC Editor! This editor allows you to edit your documentatio
 <script>
     const editor = ace.edit('editor');
     editor.session.setMode('ace/mode/asciidoc');
+    const previewElement = document.getElementById('preview');
+    editor.session.on('changeScrollTop', () => {
+        syncScroll(editor.renderer.scrollBarV.element, previewElement);
+    });
+    previewElement.addEventListener('scroll', () => {
+        syncScroll(previewElement, editor.renderer.scrollBarV.element);
+    });
 
     async function preview() {
         const content = editor.getValue();
@@ -87,6 +94,10 @@ Welcome to the ASCIIDOC Editor! This editor allows you to edit your documentatio
         const asciidoc = await response.text();
         editor.setValue(asciidoc);
     }
+
+    // function syncScroll(element, target) {
+    //     target.scrollTop = element.scrollTop;
+    // }
 </script>
 </body>
 </html>
