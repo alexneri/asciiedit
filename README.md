@@ -19,7 +19,7 @@ You can see a preview of this tool and test it on [my replit](https://asciiedit.
 
 ## Bugs, comments, suggestions, and the like
 
-If you have any suggestions to improve upon, file a ticket in our tracker. I will get to the roadmap whenever I feel like it (hehehe).
+If you have any suggestions to improve upon, file a ticket in [the tracker](https://github.com/alexneri/asciiedit/issues). I will get to the roadmap whenever I feel like it (hehehe).
 
 ## Contact
 
