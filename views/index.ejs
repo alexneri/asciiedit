@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asciidoc Editor</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/ace-builds/src-noconflict/ace.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #editor {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 1rem;
+        }
+        #preview {
+            width: 100%;
+            height: 400px;
+            overflow-y: scroll;
+            padding: 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            background-color: #f8f9fa;
+        }
+        .wide-container {
+            max-width: 90%;
+        }
+    </style>
+</head>
+<body>
+<!--<div class="container">-->
+<!--    <h1 class="my-4">Asciidoc Editor</h1>-->
+<!--    <pre id="editor"></pre>-->
+<!--    <button class="btn btn-primary mb-3" onclick="preview()">Preview</button>-->
+<!--    <div id="preview" contenteditable="true"></div>-->
+<!--    <button class="btn btn-success mt-3" onclick="save()">Save</button>-->
+<!--</div>-->
+<div class="container wide-container">
+<h1 class="my-4">Asciidoc Editor</h1>
+<blockquote>
+    <p>By Alex Neri</p>
+</blockquote>
+Welcome to the ASCIIDOC Editor! This editor allows you to edit your documentation in Asciidoc format. Featuring a WYSWYG preview, you can make quick edits, and copy the changed code back into your adoc files. <strong>NO DATA IS SAVED</strong>, so make sure to copy and paste your changes once done.<br /><br />
+<!--<pre id="editor"></pre>-->
+<!--<button class="btn btn-primary mb-3">Preview</button>-->
+<!--<div id="preview" contenteditable="true"></div>-->
+<!--<button class="btn btn-success mt-3">Save</button>-->
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <pre id="editor"></pre>
+            <button class="btn btn-primary mb-3" onclick="preview()">Preview</button>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div id="preview" contenteditable="true"></div>
+            <button class="btn btn-success mt-3" onclick="save()">Save</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const editor = ace.edit('editor');
+    editor.session.setMode('ace/mode/asciidoc');
+    const previewElement = document.getElementById('preview');
+    editor.session.on('changeScrollTop', () => {
+        syncScroll(editor.renderer.scrollBarV.element, previewElement);
+    });
+    previewElement.addEventListener('scroll', () => {
+        syncScroll(previewElement, editor.renderer.scrollBarV.element);
+    });
+
+    async function preview() {
+        const content = editor.getValue();
+        const response = await fetch('/preview', {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain' },
+            body: content
+        });
+        const html = await response.text();
+        document.getElementById('preview').innerHTML = html;
+    }
+
+    async function save() {
+        const html = document.getElementById('preview').innerHTML;
+        const response = await fetch('/reverse', {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/html' },
+            body: html
+        });
+        const asciidoc = await response.text();
+        editor.setValue(asciidoc);
+    }
+
+    // function syncScroll(element, target) {
+    //     target.scrollTop = element.scrollTop;
+    // }
+</script>
+</body>
+</html>
