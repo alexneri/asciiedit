@@ -43,19 +43,22 @@
 <div class="container wide-container">
 <h1 class="my-4">Asciidoc Editor</h1>
 <blockquote>
-    <p>By Alex Neri</p>
+    <p>By <a href="https://github.com/alexneri" target="_blank">Alex Neri</a></p>
 </blockquote>
 Welcome to the ASCIIDOC Editor! This editor allows you to edit your documentation in Asciidoc format. Featuring a WYSWYG preview, you can make quick edits, and copy the changed code back into your adoc files. <strong>NO DATA IS SAVED</strong>, so make sure to copy and paste your changes once done.<br /><br />
+  <strong>NOTE:</strong> This is the test-dev build, which always reflects the latest changes in the <a href="https://github.com/alexneri/asciiedit" target="_blank">repo</a>. Issues? File <a href="https://github.com/alexneri/asciiedit/issues" target="_blank">here</a>. Very large swathes of code will return an error, so copy or edit code in smaller chunks.<br /><br />
 <!--<pre id="editor"></pre>-->
 <!--<button class="btn btn-primary mb-3">Preview</button>-->
 <!--<div id="preview" contenteditable="true"></div>-->
 <!--<button class="btn btn-success mt-3">Save</button>-->
     <div class="row">
         <div class="col-12 col-lg-6">
+          Code Editor
             <pre id="editor"></pre>
             <button class="btn btn-primary mb-3" onclick="preview()">Preview code</button>
         </div>
         <div class="col-12 col-lg-6">
+          Preview & Editor
             <div id="preview" contenteditable="true"></div>
             <button class="btn btn-success mt-3" onclick="save()">Save to code</button>
         </div>
