@@ -23,7 +23,7 @@ If you have any suggestions to improve upon, file a ticket in [the tracker](http
 
 ## Contact
 
-You can contact me via [Twitter](https://twitter.com/crosse_) or via [my website](https://sei.moe/contact).
+You can contact me via [Misskey](https://misskey.io/@crosse), [Twitter](https://twitter.com/crosse_), or via [my website](https://sei.moe/contact).
 
 ## Relevant links
 
