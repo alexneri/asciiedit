@@ -9,6 +9,15 @@ const { exec } = require('child_process');
 const app = express();
 const port = 3000;
 
+const turndownService = new TurndownService();
+
+turndownService.addRule('codeBlocks', {
+  filter: 'code',
+  replacement: function(content) {
+    return '`' + content + '`';
+  }
+});
+
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
