@@ -31,6 +31,7 @@
             max-width: 90%;
         }
     </style>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body>
 <!--<div class="container">-->
@@ -67,6 +68,14 @@ You can use [Cmd]/[Ctrl]+[B] to Bold, [Cmd]/[Ctrl]+[I] to italicize, and other s
 </div>
 
 <script>
+
+tinymce.init({
+  selector: '#preview',
+  menubar: false,
+  statusbar: false,
+  toolbar: 'undo redo | bold italic | alignleft aligncenter alignright'
+});
+
     const editor = ace.edit('editor');
     editor.session.setMode('ace/mode/asciidoc');
     const previewElement = document.getElementById('preview');
@@ -89,7 +98,7 @@ You can use [Cmd]/[Ctrl]+[B] to Bold, [Cmd]/[Ctrl]+[I] to italicize, and other s
     }
 
     async function save() {
-        const html = document.getElementById('preview').innerHTML;
+        const html = tinymce.get('preview').getContent();
         const response = await fetch('/reverse', {
             method: 'POST',
             headers: { 'Content-Type': 'text/html' },
